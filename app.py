@@ -4,7 +4,7 @@ import base64
 import requests 
 
 st.title("Read CSV from GitHub")
-url = "https://raw.githubusercontent.com/puiman2105/testing/main/data.csv"
+url = "https://raw.githubusercontent.com/puiman2105/testing/main/testingfile.csv"
 
 def load_data():
   return pd.read_csv(url)
