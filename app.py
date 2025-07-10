@@ -14,3 +14,29 @@ try:
   st.dataframe(df)
 except Exception as e:
   st.error(f"Failed to load data: {e}")
+
+" >> https://github.com/settings/personal-access-tokens"
+a = st.text_input("Enter a")
+b = st.text_input("Enter b")
+c = st.text_input("Enter c")
+
+if st.button("Upload to GitHub"):
+  df = pd.DataFrame([{"a":a, "b":b, "c": c}])
+  csv = df.to_csv(index=False)
+  content = base64.b64encode(csv.encode()).decode()
+
+  url = "https://api.github.com/repos/puiman2105/testing/contents/testingfile.csv"
+  headers = {"Authorization": f"token {st.secrets['github']['token']}"}
+
+  payload = {
+    "message": "Add testingfile.csv",
+    "contents": content,
+    "branch": "main"
+  }
+
+  r = request.put(url, headers=headers, json=payload)
+  if r.status code in [200,201]:
+      st.success("data Uploaded!")
+  else:
+      st.error("Failed to upload")
+                      
